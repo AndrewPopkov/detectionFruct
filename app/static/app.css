@@ -23,3 +23,71 @@
 .navbar-text {
     text-align: right;
 }
+
+.formunion {
+    cursor: pointer;
+    height: 35px;
+    overflow: hidden;
+    padding: 2px;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.fileform {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 90%;
+    overflow: hidden;
+    padding: 2px;
+    float: left;
+    position: absolute;
+    vertical-align: middle;
+    width: 82%;
+}
+
+.formunion .selectbutton {
+    background-color: rgb(91, 192, 222);
+    border: 1px solid rgb(38, 154, 188);
+    border-radius: 4px;
+    color: #FFFFFF;
+    float: right;
+    align: center
+    position: absolute;
+    vertical-align: middle;
+    font-size: 17px;
+    height: 100%;
+    line-height: 24px;
+    overflow: hidden;
+    padding: 2px 6px;
+    text-align: center;
+    vertical-align: middle;
+    width: 17%;
+}
+
+.selectbutton #upload{
+    position:absolute;
+    opacity: 0;
+    float: center;
+    align: center
+    font-size: 17px;
+    height:100%;
+    z-index:100;
+    width: 100%;
+}
+    .fileform #fileformlabel {
+    background-color: #FFFFFF;
+    float: left;
+    height: 90%;
+    float: left;
+    position: absolute;
+    line-height: 100%;
+    overflow: hidden;
+    padding: 2px;
+    text-align: left;
+    vertical-align: middle;
+    width:160px;
+    }
+
