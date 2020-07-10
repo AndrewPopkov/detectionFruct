@@ -8,11 +8,11 @@ from werkzeug.utils import secure_filename
 
 from app.forms import TextInputForm
 from app.nav import nav
+from app.src.detector import Detector
 
 UPLOAD_FOLDER = 'app/static/images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
-# from app.src.sentiment_analyzer import SentimentAnalyzer
 
 frontend = Blueprint('frontend', __name__)
 
@@ -21,6 +21,8 @@ nav.register_element('frontend_top', Navbar(
     View('Debug-Info', 'debug.debug_root'),
     Text('Using Flask-Bootstrap {}'.format(FLASK_BOOTSTRAP_VERSION)), ))
 
+
+detector =Detector()
 
 def allowed_file(filename):
     return '.' in filename and \

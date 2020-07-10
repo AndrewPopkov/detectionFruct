@@ -2,11 +2,15 @@ import cv2
 import torch
 import numpy as np
 import torchvision
-
+from google_drive_downloader import GoogleDriveDownloader as gdd
 
 
 class Detector():
-    def __init__(self, pathModel):
+    def __init__(self, url):
+        gdd.download_file_from_google_drive(file_id='1-9ePvKN0l_QIp_UcIoNrkG0AXOosGuR2',
+                                            dest_path='model/rrcnn_0.7881030117472012.pth',
+                                            unzip=True)
+
         use_gpu = torch.cuda.is_available()
         if use_gpu:
             net = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False).cuda()
