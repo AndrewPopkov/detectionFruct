@@ -40,9 +40,11 @@
     border-radius: 5px;
     cursor: pointer;
     height: 90%;
+    font-size: 17px;
     overflow: hidden;
     padding: 2px;
     float: left;
+    vertical-align: middle;
     position: absolute;
     vertical-align: middle;
     width: 82%;
@@ -82,12 +84,14 @@
     float: left;
     height: 90%;
     float: left;
+    width: 100%;
+    font-size: 17px;
     position: absolute;
     line-height: 100%;
     overflow: hidden;
     padding: 2px;
     text-align: left;
-    vertical-align: middle;
-    width:160px;
+    align: center
+    vertical-align: baseline;
     }
 

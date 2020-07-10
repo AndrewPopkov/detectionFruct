@@ -6,6 +6,7 @@ from flask_debug import Debug
 from app.frontend import frontend
 from app import forms
 from app.nav import nav
+from config import UPLOAD_FOLDER, MAX_FILE_SIZE, ALLOWED_EXTENSIONS
 
 
 def create_app(configfile=None):
@@ -24,6 +25,10 @@ def create_app(configfile=None):
     # to register it:
     app.register_blueprint(frontend)
 
+    app.config['BOOTSTRAP_SERVE_LOCAL'] = True
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['MAX_FILE_SIZE'] = MAX_FILE_SIZE
+    app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
     app.config['BOOTSTRAP_SERVE_LOCAL'] = True
     app.secret_key = 'try_to_guess'
 
