@@ -6,7 +6,7 @@ from google_drive_downloader import GoogleDriveDownloader as gdd
 
 
 class Detector():
-    def __init__(self, url):
+    def __init__(self):
         gdd.download_file_from_google_drive(file_id='1-9ePvKN0l_QIp_UcIoNrkG0AXOosGuR2',
                                             dest_path='model/rrcnn_0.7881030117472012.pth',
                                             unzip=True)
