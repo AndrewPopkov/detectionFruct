@@ -1,0 +1,50 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{%- extends "base.html" %}
+
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="app_h1">Select fruit type for detection </h1>
+        <hr>
+        <form action="predict" method="POST">
+            <div class="formunionImg">
+                <div class="formimg">
+                    <img class="imginner" src="{{url_for('static', filename=img)}}"/>
+                </div>
+                <div class="formBtn">
+                    <div class="form_radio">
+
+                        <input id="radio-1" type="radio" name="fructselect" value="1" checked>
+
+                        <label for="radio-1">Orange</label>
+
+                    </div>
+
+
+                    <div class="form_radio">
+
+                        <input id="radio-2" type="radio" name="fructselect" value="2">
+
+                        <label for="radio-2">Banana</label>
+
+                    </div>
+
+
+                    <div class="form_radio">
+
+                        <input id="apple" type="radio" name="fructselect" value="3">
+
+                        <label for="apple">Apple</label>
+
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <hr>
+            <button class="btn btn-info" formaction="img" id="detectBtn" type="submit"> Detecting ...</button>
+        </form>
+    </div>
+</div>
+{%- endblock %}

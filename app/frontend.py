@@ -36,14 +36,14 @@ def index():
     return render_template("index.html", args=args)
 
 
-@frontend.route('/sentiment', methods=["POST", "GET"])
-def sentiment_form():
+@frontend.route('/img', methods=["POST", "GET"])
+def img_form():
     if request.method == "POST":
         file = request.files["upload"]
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER, filename))
-    return render_template('sentiment_form.html', img=filename)
+    return render_template('img_form.html', img="images/" +filename)
 
 # @frontend.route("/predict", methods=['GET'])
 # def predict():

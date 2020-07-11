@@ -33,6 +33,47 @@
     vertical-align: middle;
     width: 100%;
 }
+.formunionImg {
+    cursor: pointer;
+    height: 500px;
+    overflow: hidden;
+    padding: 2px;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+}
+
+
+.formunionImg .formimg {
+    cursor: pointer;
+    height: 50%
+    overflow: hidden;
+    padding: 5px;
+    float: left;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+.formunionImg .formBtn {
+    cursor: pointer;
+    height: 50%
+    overflow: hidden;
+    padding: 5px;
+    float: right;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+}
+.formunionImg .formimg .imginner {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 2px;
+  height: 100%;
+  width: 100%;
+
+}
+
 
 .fileform {
     background-color: #FFFFFF;
@@ -79,7 +120,7 @@
     z-index:100;
     width: 100%;
 }
-    .fileform #fileformlabel {
+.fileform #fileformlabel {
     background-color: #FFFFFF;
     float: left;
     height: 90%;

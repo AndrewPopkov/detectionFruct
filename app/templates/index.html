@@ -25,6 +25,8 @@ function getName (str){
     var filename = str.slice(i);
     var uploaded = document.getElementById("fileformlabel");
     uploaded.innerHTML = filename;
+    var btn = document.getElementById("uploadBtn");
+    btn.disabled=false
 }
 
 
@@ -44,7 +46,6 @@ function getName (str){
 <div class="container">
     <div class="jumbotron">
         <h1 class="app_h1">Application for fruit detection by image</h1>
-        <h2 class="app_h2">(find a banana on the image)</h2>
         <hr>
         <form class="md-form" action="/" method="POST" enctype="multipart/form-data">
             <div class="formunion">
@@ -56,11 +57,10 @@ function getName (str){
                            onchange="getName(value)"/>
                     Choose file
                 </div>
-
             </div>
             <hr>
             <hr>
-            <button class="btn btn-info" formaction="sentiment" type="submit">Detecting ...</button>
+            <button class="btn btn-info" formaction="img" id="uploadBtn" type="submit" disabled="true" > Load image ...</button>
         </form>
 
 
