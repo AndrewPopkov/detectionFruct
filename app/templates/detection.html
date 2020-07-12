@@ -1,0 +1,21 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{%- extends "base.html" %}
+
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="app_h1">Result </h1>
+        <hr>
+        <form action="detection" method="POST">
+            <div class="formunionImg">
+                <div class="formimg">
+                    <img class="imginner" src="{{url_for('static', filename=pathImg)}}"/>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{%- endblock %}

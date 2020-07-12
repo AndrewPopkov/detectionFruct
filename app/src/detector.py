@@ -1,6 +1,9 @@
+import os
+
 import cv2
 import torch
 import numpy as np
+from PIL import Image
 import torchvision
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
@@ -13,35 +16,29 @@ class Detector():
                                             unzip=True)
 
         # use_gpu = torch.cuda.is_available()
-        use_gpu = False
-        if use_gpu:
-            DEVICE = torch.device("cuda")
-            net = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False).to(DEVICE)
-            net.load_state_dict(torch.load('model/rrcnn_0.7881030117472012.pth'))
-            net.eval().to(DEVICE)
+        self.use_gpu = False
+        if self.use_gpu:
+            self.DEVICE = torch.device("cuda")
+            self.net = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False).to(self.DEVICE)
+            self.net.load_state_dict(torch.load('model/rrcnn_0.7881030117472012.pth'))
+            self.net.eval().to(self.DEVICE)
         else:
-            DEVICE = torch.device("cpu")
-            net = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False).to(DEVICE)
-            net.load_state_dict(torch.load('model/rrcnn_0.7881030117472012.pth'))
-            net.eval().to(DEVICE)
+            self.DEVICE = torch.device("cpu")
+            self.net = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False).to(self.DEVICE)
+            self.net.load_state_dict(torch.load('model/rrcnn_0.7881030117472012.pth', map_location=torch.device('cpu')))
+            self.net.eval().to(self.DEVICE)
 
-    def plot_preds(numpy_img, preds):
+    def plot_preds(self, numpy_img, preds):
         boxes = preds['boxes'].cpu().detach().numpy()
         if len(boxes) == 0:
             return numpy_img
         for box in boxes:
-            numpy_img = cv2.rectangle(
-                numpy_img,
-                (box[0], box[1]),
-                (box[2], box[3]),
-                255,
-                3
-            )
-        return numpy_img.get()
+            numpy_img = cv2.rectangle(numpy_img, (int(box[0]), int(box[1])), (int(box[2]), int(box[3])), 255, 3)
+        return numpy_img
 
     def detect(self, imgPath, targetlabel):
-        img_numpy = cv2.imread(imgPath)[:, :, ::-1]
-        img = torch.from_numpy(img_numpy.astype('float32')).permute(2, 0, 1)
+        img_numpy = cv2.imread(imgPath)
+        img = torch.from_numpy(img_numpy[:, :, ::-1].astype('float32')).permute(2, 0, 1)
         img = img / 255.
         if self.use_gpu:
             predictions = self.net(img[None, ...].to(self.DEVICE))
@@ -53,5 +50,7 @@ class Detector():
         boxes_dict = {}
         boxes_dict['boxes'] = boxes
         img_with_boxes = self.plot_preds(img_numpy, boxes_dict)
-        cv2.imwrite(imgPath, img_with_boxes)
-        return imgPath
+        newPath=imgPath.replace(os.path.splitext(imgPath)[0], os.path.splitext(imgPath)[0] + '_handled')
+        cv2.imwrite(newPath,
+                    img_with_boxes)
+        return newPath

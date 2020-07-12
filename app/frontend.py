@@ -13,7 +13,6 @@ from app.src.detector import Detector
 UPLOAD_FOLDER = 'app/static/images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
-
 frontend = Blueprint('frontend', __name__)
 
 nav.register_element('frontend_top', Navbar(
@@ -21,8 +20,19 @@ nav.register_element('frontend_top', Navbar(
     View('Debug-Info', 'debug.debug_root'),
     Text('Using Flask-Bootstrap {}'.format(FLASK_BOOTSTRAP_VERSION)), ))
 
+detector = Detector()
 
-detector =Detector()
+@frontend.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -43,13 +53,12 @@ def img_form():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER, filename))
-    return render_template('img_form.html', img="images/" +filename)
+    return render_template('img_form.html', img="images/" + filename)
 
-# @frontend.route("/predict", methods=['GET'])
-# def predict():
-#     sentiment_text = request.args.get('textarea', '')
-#     respalyzer = SentimentAnalyzer()
-#     prediction_message = respalyzer.get_prediction_message(sentiment_text)
-#     return render_template("prediction.html", form=TextInputForm(),
-#                            sentiment_text=sentiment_text,
-#                            prediction_message=prediction_message)
+
+@frontend.route("/detection", methods=["POST", "GET"])
+def detection():
+    labelImg = request.form.get('fructselect')
+    pathImg = request.form.get('btnDtct')
+    pathImg = detector.detect('app/static/' + pathImg, int(labelImg))
+    return render_template("detection.html", pathImg=pathImg.replace('app/static/', ''))
