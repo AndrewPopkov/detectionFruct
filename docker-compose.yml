@@ -1,0 +1,7 @@
+version: '3'
+services:
+  webapp:
+    build: .
+    network_mode: "host"
+    ports:
+      - 1314:1314

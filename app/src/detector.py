@@ -7,25 +7,24 @@ from PIL import Image
 import torchvision
 from google_drive_downloader import GoogleDriveDownloader as gdd
 
-
 class Detector():
 
     def __init__(self):
-        gdd.download_file_from_google_drive(file_id='1-9ePvKN0l_QIp_UcIoNrkG0AXOosGuR2',
-                                            dest_path='model/rrcnn_0.7881030117472012.pth',
+        gdd.download_file_from_google_drive(file_id='170wEArJiLdU5lI9Mh-DyNOevoFZs7Y81',
+                                            dest_path='model/rrcnn_0.7204322155978944.pth',
                                             unzip=True)
 
         # use_gpu = torch.cuda.is_available()
         self.use_gpu = False
         if self.use_gpu:
             self.DEVICE = torch.device("cuda")
-            self.net = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False).to(self.DEVICE)
-            self.net.load_state_dict(torch.load('model/rrcnn_0.7881030117472012.pth'))
+            self.net = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False,num_classes=4).to(self.DEVICE)
+            self.net.load_state_dict(torch.load('model/rrcnn_0.7204322155978944.pth'))
             self.net.eval().to(self.DEVICE)
         else:
             self.DEVICE = torch.device("cpu")
-            self.net = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False).to(self.DEVICE)
-            self.net.load_state_dict(torch.load('model/rrcnn_0.7881030117472012.pth', map_location=torch.device('cpu')))
+            self.net = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=False,num_classes=4).to(self.DEVICE)
+            self.net.load_state_dict(torch.load('model/rrcnn_0.7204322155978944.pth', map_location=torch.device('cpu')))
             self.net.eval().to(self.DEVICE)
 
     def plot_preds(self, numpy_img, preds):
